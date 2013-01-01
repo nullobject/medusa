@@ -27,6 +27,11 @@ class EntityTest extends FunSpec {
       val entity = Entity(state = Entity.Dead)
       assert(entity.idle.state === Entity.Idle)
     }
+
+    it("should change energy") {
+      val entity = Entity(energy = 0)
+      assert(entity.idle.energy === 20)
+    }
   }
 
   describe("#move") {
@@ -37,6 +42,11 @@ class EntityTest extends FunSpec {
 
     it("should change the position") {
       pending
+    }
+
+    it("should change energy") {
+      val entity = Entity(energy = 100)
+      assert(entity.move.energy === 80)
     }
   }
 
@@ -50,12 +60,22 @@ class EntityTest extends FunSpec {
       val entity = Entity(direction = 0)
       assert(entity.turn(90).direction === 90)
     }
+
+    it("should change energy") {
+      val entity = Entity(energy = 100)
+      assert(entity.turn(90).energy === 70)
+    }
   }
 
   describe("#attack") {
     it("should set the state to Attacking") {
       val entity = Entity(state = Entity.Dead)
       assert(entity.attack.state === Entity.Attacking)
+    }
+
+    it("should change energy") {
+      val entity = Entity(energy = 100)
+      assert(entity.attack.energy === 0)
     }
   }
 }

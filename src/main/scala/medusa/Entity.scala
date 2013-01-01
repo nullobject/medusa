@@ -3,6 +3,9 @@ package medusa
 import java.util.UUID
 
 trait AbstractEntity {
+  def canMove: Boolean
+  def canTurn: Boolean
+  def canAttack: Boolean
   def id: UUID
   def tick: AbstractEntity
   def idle: AbstractEntity
@@ -27,17 +30,22 @@ case class Entity(
 
   def isAlive = health > 0
 
+  def canMove   = energy >= 20
+  def canTurn   = energy >= 30
+  def canAttack = energy >= 100
+
   def tick = incrementAge
 
-  def idle = copy(state = Idle)
+  def idle = changeEnergy(20).copy(state = Idle)
 
-  def move = copy(position = position + (0, 1), state = Moving)
+  def move = changeEnergy(-20).copy(position = position + (0, 1), state = Moving)
 
-  def turn(d: Int) = copy(direction = d, state = Turning)
+  def turn(d: Int) = changeEnergy(-30).copy(direction = d, state = Turning)
 
-  def attack = copy(state = Attacking)
+  def attack = changeEnergy(-100).copy(state = Attacking)
 
   private def incrementAge = copy(age = age + 1)
+  private def changeEnergy(delta: Int) = copy(energy = math.min(math.max(0, energy + delta), 100))
 }
 
 object Entity {
