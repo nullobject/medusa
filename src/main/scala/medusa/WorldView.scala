@@ -10,5 +10,5 @@ case class WorldView(
 
 object WorldView {
   def scope(world: World) =
-    WorldView(age = world.age, entities = world.entities)
+    WorldView(age = world.age, entities = world.entities.asInstanceOf[Set[Entity]])
 }

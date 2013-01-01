@@ -7,14 +7,14 @@ import scala.util.Random
  * The world class represents the state of the world.
  */
 case class World(
-  age: Long = 0,
-  entities: Set[Entity] = Set.empty
+  entities: Set[AbstractEntity] = Set.empty,
+  age: Long = 0
 ) {
   import World._
 
   def tick = tickEntities.incrementAge
 
-  def spawn(entity: Entity) = copy(entities = entities + entity)
+  def spawn(entity: AbstractEntity) = copy(entities = entities + entity)
 
   def idle(entityId: UUID) = {
     val entity = getEntity(entityId).get
@@ -40,7 +40,7 @@ case class World(
     copy(entities = entities - entity + newEntity)
   }
 
-  private def getEntity(entityId: UUID): Option[Entity] = entities.find { _.id == entityId }
+  private def getEntity(entityId: UUID): Option[AbstractEntity] = entities.find { _.id == entityId }
   private def incrementAge = copy(age = age + 1)
   private def tickEntities = copy(entities = entities.map(_.tick))
 }

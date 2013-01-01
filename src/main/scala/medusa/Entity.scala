@@ -2,6 +2,15 @@ package medusa
 
 import java.util.UUID
 
+trait AbstractEntity {
+  def id: UUID
+  def tick: AbstractEntity
+  def idle: AbstractEntity
+  def move: AbstractEntity
+  def turn(d: Int): AbstractEntity
+  def attack: AbstractEntity
+}
+
 /**
  * The entity class represents an entity in the world.
  */
@@ -13,7 +22,7 @@ case class Entity(
   health: Int = 100,
   energy: Int = 100,
   age: Long = 0
-) {
+) extends AbstractEntity {
   import Entity._
 
   def isAlive = health > 0

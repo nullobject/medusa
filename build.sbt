@@ -10,7 +10,8 @@ libraryDependencies ++= Seq(
   "io.spray" % "spray-httpx" % "1.1-M7",
   "io.spray" %% "spray-json" % "1.2.3" cross CrossVersion.full,
   "io.spray" % "spray-routing" % "1.1-M7",
-  "org.scalatest" %% "scalatest" % "2.0.M5-B1" % "test" cross CrossVersion.full
+  "org.scalatest" %% "scalatest" % "2.0.M5-B1" % "test" cross CrossVersion.full,
+  "org.scalamock" %% "scalamock-scalatest-support" % "3.0-M8" % "test" cross CrossVersion.full
 )
 
 seq(Revolver.settings: _*)
