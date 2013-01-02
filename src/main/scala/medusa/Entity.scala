@@ -34,7 +34,7 @@ case class Entity(
   def canTurn   = energy >= 30
   def canAttack = energy >= 100
 
-  def tick = incrementAge
+  def tick = incrementAge.copy(state = Idle)
 
   def idle = changeEnergy(20).copy(state = Idle)
 
